@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AodZen</string>
+    <string name="xposed_description">Disable the notification light effect of the AOD mode, only supports HyperOS.</string>
+</resources>
