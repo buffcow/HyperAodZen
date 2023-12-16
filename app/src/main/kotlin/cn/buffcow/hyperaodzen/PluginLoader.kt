@@ -46,10 +46,7 @@ internal object PluginLoader : YukiBaseHooker() {
                     name = "mContext"
                 }.cast<Context>()?.takeIf { ctx ->
                     MiuiSettings.SoundMode.isZenModeOn(ctx)
-                } ?: kotlin.run {
-                    callOriginal()
-                    return@replaceUnit
-                }
+                } ?: callOriginal()
             }
         }
     }
