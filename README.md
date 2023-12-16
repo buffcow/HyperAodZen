@@ -1,7 +1,7 @@
 # 息屏勿扰（HyperAodZen）
-用于在勿扰模式下禁用息屏显示的通知光效，仅支持 HyperOS。
+用于在勿扰模式下禁用息屏显示的通知光效，仅在 HyperOS 下通过测试。
 
-Disable the notification light effect of the AOD mode, only supports HyperOS.
+Disable the notification light effect of the AOD mode, tested only in HyperOS.
 
 ## 使用
 1. 在Xposed管理器(LSPosed, EdXposed...)中激活模块 (强烈推荐使用LSP)
