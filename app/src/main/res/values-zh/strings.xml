@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">息屏勿扰</string>
-    <string name="xposed_description">用于在勿扰模式下禁用息屏显示的通知光效，仅支持 HyperOS。</string>
+    <string name="xposed_description">用于在勿扰模式下禁用息屏显示的通知光效，仅在 HyperOS 下通过测试。</string>
 </resources>
