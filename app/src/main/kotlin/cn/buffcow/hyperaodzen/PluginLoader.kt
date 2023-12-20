@@ -47,14 +47,12 @@ internal object PluginLoader : YukiBaseHooker() {
     private fun hookAodZen(loader: ClassLoader) {
         "${SystemUI.AOD.PACKAGE_NAME}.AODView".toClass(loader).method {
             name = "scheduleNotificationAnimation"
-        }.hook {
-            replaceUnit {
-                instance.current().field {
-                    name = "mContext"
-                }.cast<Context>()?.takeIf { ctx ->
-                    MiuiSettings.SoundMode.isZenModeOn(ctx)
-                } ?: callOriginal()
-            }
+        }.hook().replaceUnit {
+            instance.current().field {
+                name = "mContext"
+            }.cast<Context>()?.takeIf { ctx ->
+                MiuiSettings.SoundMode.isZenModeOn(ctx)
+            } ?: callOriginal()
         }
     }
 
