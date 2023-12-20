@@ -1,13 +1,14 @@
 package cn.buffcow.hyperaodzen
 
+import android.content.ComponentName
 import android.content.Context
+import android.content.ContextWrapper
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.constructor
 import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.log.YLog
 import fake.android.provider.MiuiSettings
-import fake.com.android.systemui.shared.plugins.PluginInstance
+import fake.com.android.systemui.shared.plugins.PluginFactory
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**
@@ -21,16 +22,22 @@ internal object PluginLoader : YukiBaseHooker() {
     private val aodHooked = AtomicBoolean(false)
 
     override fun onHook() {
-        PluginInstance.CLASS_NAME.toClass().constructor().hookAll {
-            after { onPluginLoaded(PluginInstance(instance)) }
+        PluginFactory.CLASS_NAME.toClass().method {
+            name = PluginFactory.M_createPluginContext
+        }.hook().after {
+            val wrapper = result<ContextWrapper>() ?: kotlin.run {
+                YLog.error("Failed to create plugin context.")
+                return@after
+            }
+            onPluginLoaded(PluginFactory(instance).componentName, wrapper.classLoader)
         }
     }
 
-    private fun onPluginLoaded(plugin: PluginInstance) {
-        when (plugin.componentName) {
+    private fun onPluginLoaded(cmp: ComponentName, pluginClsLoader: ClassLoader) {
+        when (cmp) {
             SystemUI.AOD.CMP_AOD_DZON -> {
                 if (aodHooked.compareAndSet(false, true)) {
-                    hookAodZen(plugin.pluginClassLoader)
+                    hookAodZen(pluginClsLoader)
                     YLog.info("Plugin for sysui aod hooked.")
                 }
             }
