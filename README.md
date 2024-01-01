@@ -13,6 +13,3 @@ Disable the notification light effect of the AOD mode, tested only in HyperOS.
 
 ## 无效
 请先检查模块是否正常激活，并且作用域是否勾选。<br>如果排查后仍有错误，请提交issue。或联系酷安[@buffcow](http://www.coolapk.com/u/1188320)(qingyu)
-
-## 致谢
-模块使用 [Yuki Hook API](https://github.com/fankes/YukiHookAPI) 构建
